@@ -11,19 +11,24 @@ def teil_finden(file):
         teil = utc.group(1)
     else:
         print('Ничего не найдено. Попробуйте заново с другим файлом.')
+        teil = ''
     return teil
-
+        
 def zeitzone(teil):
-    gefunden = re.findall('>([^<>]+)<', teil)
-    ergebnis = ''.join(gefunden)
+    if teil:
+        gefunden = re.findall('>([^<>]+)<', teil)
+        ergebnis = ''.join(gefunden)
+    else:
+        ergebnis = ''
     return ergebnis
 
 def txt_machen(ergebnis, seite, name):
-    stadt = re.search('<title>([^—]+)\s—\s', seite).group(1) + '\n'
-    txt = open(name + '_timezone.txt', 'w', encoding='utf-8')
-    stadt += ergebnis + '\n'
-    txt.write(stadt)
-    txt.close()
+    if ergebnis:
+        stadt = re.search('<title>([^—]+)\s—\s', seite).group(1) + '\n'
+        txt = open(name + '_timezone.txt', 'w', encoding='utf-8')
+        stadt += ergebnis + '\n'
+        txt.write(stadt)
+        txt.close()
     
 def main():
     seite, name = seite_öffnen()
