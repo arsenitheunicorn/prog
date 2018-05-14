@@ -23,6 +23,8 @@ def my_path():
     return path
 
 def rcounter(root, counters):
+    roots = root.split(os.sep)
+    root = roots[len(roots) - 1]
     if 'r' in root:
         if 'rcount' in counters:
             counters['rcount'] += 1
