@@ -29,6 +29,17 @@ def liste_fur_csv(liste):
         csv_liste.append(art_liste)
     return tag_liste, csv_liste
 
+def no_comas(csv):
+    csv2 = []
+    for art in csv:
+        art2 = []
+        for meta in art:
+            meta = re.sub(',', '', meta)
+            art2.append(meta)
+        csv2.append(art2)
+    return csv2
+    
+
 def create_csv(tag, csv):
     with open('auf1.csv', 'w', encoding='utf-8') as table:
         table.write(','.join(tag))
@@ -82,7 +93,8 @@ def create_txt(bigr_liste):
 
 def main():
     daten, lines = open_files()
-    tag, csv = liste_fur_csv(daten)
+    tag, csv2 = liste_fur_csv(daten)
+    csv = no_comas(csv2)
     create_csv(tag, csv)
     wb = abbr(lines)
     create_tsv(wb)
